@@ -19,10 +19,10 @@ namespace MaintainApi.Controllers
         }
 
         // GET: api/MarketOffer/5
-        [HttpGet("{LegalEntityId}", Name = "Get")]
-        public string Get(int LegalEntityId)
+        [HttpGet("{LegalEntityId}/{AssetCode}", Name = "Get")]
+        public string Get(int LegalEntityId, string AssetCode)
         {
-            return $"value={LegalEntityId}";
+            return $"value={LegalEntityId} and {AssetCode}";
         }
 
         // POST: api/MarketOffer

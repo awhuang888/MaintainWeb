@@ -1,0 +1,6 @@
+﻿SELECT A.AssetId, A.AssetCode, A.Name, AAO.*
+FROM ApprovedAssetOffer AAO
+INNER JOIN AssetOffer AO ON AAO.AssetOfferId = AO.AssetOfferId
+INNER JOIN Asset A ON AO.AssetId = A.AssetId
+WHERE LegalEntityId = @LegalEntityId
+AND A.AssetCode IN (@AssetCode)

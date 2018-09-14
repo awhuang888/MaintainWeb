@@ -5,12 +5,28 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="SqlTemplates\EndApprovedAssetOffer.Read.Sql.txt" />
+    <None Remove="SqlTemplates\Test.Read.Sql.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="SqlTemplates\EndApprovedAssetOffer.Read.Sql.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SqlTemplates\Test.Read.Sql.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="system.data.sqlclient" Version="4.5.1" />
   </ItemGroup>
 
 </Project>
