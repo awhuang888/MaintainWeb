@@ -6,10 +6,14 @@
 
   <ItemGroup>
     <None Remove="SqlTemplates\EndApprovedAssetOffer.Read.Sql.txt" />
+    <None Remove="SqlTemplates\EndApprovedAssetOffer.Update.Sql.txt" />
     <None Remove="SqlTemplates\Test.Read.Sql.txt" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="SqlTemplates\EndApprovedAssetOffer.Update.Sql.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="SqlTemplates\EndApprovedAssetOffer.Read.Sql.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>

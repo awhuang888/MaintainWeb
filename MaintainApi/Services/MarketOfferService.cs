@@ -14,18 +14,39 @@ namespace MaintainApi.Services
     {
         public static string GetApprovedAssetOffer(int legalEntityId, string assetCode)
         {
-            var sqlCommand = SqlCommandBuilder.BuildEndApprovedAssetOffer_Read(legalEntityId, assetCode);
+            var sqlCommand = BuildEndApprovedAssetOffer_Read(legalEntityId, assetCode);
             var dt = AdoService.Fetch(sqlCommand);
             string json = JsonConvert.SerializeObject(dt, Formatting.Indented);
             return json;
         }
 
-        public static string UpdateApprovedAssetOffer(string assetCode, DateTime endDate)
+        public static int UpdateApprovedAssetOffer(string assetCode, DateTime endDate)
         {
-            var sqlCommand = SqlCommandBuilder.BuildEndApprovedAssetOffer_Read(legalEntityId, assetCode);
-            var dt = AdoService.Fetch(sqlCommand);
-            string json = JsonConvert.SerializeObject(dt, Formatting.Indented);
-            return json;
+            var sqlCommand = BuildEndApprovedAssetOffer_Update(assetCode, endDate);
+            var result = AdoService.Update(sqlCommand);
+            return result;
+        }
+
+        private static SqlCommand BuildEndApprovedAssetOffer_Update(string assetCode, DateTime endDate)
+        {
+            var paraEndDate = new SqlParameter("EndDate", endDate);
+            var paraAssetCode = new SqlParameter("AssetCode", assetCode);
+            return AdoService.BuildSqlCommand(
+                "EndApprovedAssetOffer.Update",
+                paraEndDate,
+                paraAssetCode
+            );
+        }
+
+        private static SqlCommand BuildEndApprovedAssetOffer_Read(int legalEntityId, string assetCode)
+        {
+            var paraLegalEntityId = new SqlParameter("LegalEntityId", legalEntityId);
+            var paraAssetCode = new SqlParameter("AssetCode", assetCode);
+            return AdoService.BuildSqlCommand(
+                "EndApprovedAssetOffer.Read",
+                paraLegalEntityId,
+                paraAssetCode
+            );
         }
     }
 
@@ -33,7 +54,7 @@ namespace MaintainApi.Services
     {
         public static string GetTestRead()
         {
-            var sqlCommand = SqlCommandBuilder.BuildTest_Read();
+            var sqlCommand = AdoService.BuildTest_Read();
             var dt = AdoService.Fetch(sqlCommand);
             string json = JsonConvert.SerializeObject(dt, Formatting.Indented);
             return json;
@@ -53,11 +74,19 @@ namespace MaintainApi.Services
             }
             return result;
         }
-    }
 
-    public class SqlCommandBuilder
-    {
-        private static SqlCommand BuildSqlCommand(string templateName, params SqlParameter[] parameters)
+        public static int Update(SqlCommand sqlCommand)
+        {
+            int result;
+            using (var connection = new SqlConnection("data source=(local);initial catalog=OneTrust;integrated security=True;MultipleActiveResultSets=True;"))
+            {
+                sqlCommand.Connection = connection;
+                result = sqlCommand.ExecuteNonQuery();
+            }
+            return result;
+        }
+
+        public static SqlCommand BuildSqlCommand(string templateName, params SqlParameter[] parameters)
         {
             SqlCommand sqlCommand = new SqlCommand();
             using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"MaintainApi.SqlTemplates.{templateName}.Sql.txt"))
@@ -75,17 +104,6 @@ namespace MaintainApi.Services
         {
             return BuildSqlCommand(
                 "Test.Read"
-            );
-        }
-
-        public static SqlCommand BuildEndApprovedAssetOffer_Update(string assetCode, DateTime endDate)
-        {
-            var paraEndDate = new SqlParameter("EndDate", endDate);
-            var paraAssetCode = new SqlParameter("AssetCode", assetCode);
-            return BuildSqlCommand(
-                "EndApprovedAssetOffer.Update",
-                paraEndDate,
-                paraAssetCode
             );
         }
     }
