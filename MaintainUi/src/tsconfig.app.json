@@ -1,5 +1,6 @@
 {
   "extends": "../tsconfig.json",
+  "javascript.implicitProjectConfig.experimentalDecorators": true,
   "compilerOptions": {
     "outDir": "../out-tsc/app",
     "types": []
