@@ -4,3 +4,4 @@ FROM ApprovedAssetOffer AAO
 INNER JOIN AssetOffer AO ON AAO.AssetOfferId = AO.AssetOfferId
 INNER JOIN Asset A ON AO.AssetId = A.AssetId
 WHERE AssetCode = @AssetCode
+and LegalEntityId = @LegalEntityId

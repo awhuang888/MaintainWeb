@@ -3,18 +3,22 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Newtonsoft.Json;
 
 namespace MaintainApi.Services
 {
     public class AdoService
     {
+        private static string connectionString =
+            "data source=(local);initial catalog=OneTrust;integrated security=True;MultipleActiveResultSets=True;";
+
         public static DataTable Fetch(SqlCommand sqlCommand)
         {
             DataTable result = new DataTable();
-            using (var connection = new SqlConnection("data source=(local);initial catalog=OneTrust;integrated security=True;MultipleActiveResultSets=True;"))
+            using (var connection = new SqlConnection(connectionString))
             {
                 sqlCommand.Connection = connection;
-                System.Data.SqlClient.SqlDataAdapter da = new SqlDataAdapter(sqlCommand);
+                SqlDataAdapter da = new SqlDataAdapter(sqlCommand);
                 da.Fill(result);
             }
             return result;
@@ -23,8 +27,9 @@ namespace MaintainApi.Services
         public static int Update(SqlCommand sqlCommand)
         {
             int result;
-            using (var connection = new SqlConnection("data source=(local);initial catalog=OneTrust;integrated security=True;MultipleActiveResultSets=True;"))
+            using (var connection = new SqlConnection(connectionString))
             {
+                connection.Open();
                 sqlCommand.Connection = connection;
                 result = sqlCommand.ExecuteNonQuery();
             }
@@ -39,7 +44,6 @@ namespace MaintainApi.Services
                 TextReader tr = new StreamReader(stream);
                 sqlCommand.CommandText = tr.ReadToEnd();
             }
-
             parameters.ToList().ForEach(x => sqlCommand.Parameters.Add(x));
 
             return sqlCommand;

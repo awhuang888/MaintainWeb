@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MaintainApi.Services;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace MaintainApi.Controllers
 {
@@ -18,11 +20,19 @@ namespace MaintainApi.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        // GET: api/MarketOffer/5
+        // GET: api/MarketOffer/1013726/TLS
         [HttpGet("{LegalEntityId}/{AssetCode}", Name = "Get")]
-        public string Get(int LegalEntityId, string AssetCode)
+        public IActionResult Get(int legalEntityId, string assetCode)
         {
-            return $"value={LegalEntityId} and {AssetCode}";
+            try
+            {
+                var result = AssetOfferService.GetApprovedAssetOffer(legalEntityId, assetCode);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // POST: api/MarketOffer
@@ -31,10 +41,23 @@ namespace MaintainApi.Controllers
         {
         }
 
-        // PUT: api/MarketOffer/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // PUT: api/MarketOffer/1013726/TLS
+        // [FromBody]:"2018-7-7"
+        [HttpPut("{LegalEntityId}/{AssetCode}")]
+        public IActionResult Put(int legalEntityId, string assetCode, [FromBody] string dateTimeString)
         {
+            try
+            {
+                DateTime? closedDateTime = DateTime.TryParse(dateTimeString, out DateTime tDateTime)
+                    ? tDateTime
+                    : (DateTime?) null;
+                var result = AssetOfferService.UpdateApprovedAssetOffer(legalEntityId, assetCode, closedDateTime);
+               return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // DELETE: api/ApiWithActions/5
