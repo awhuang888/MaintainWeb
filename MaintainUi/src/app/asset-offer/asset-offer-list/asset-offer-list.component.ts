@@ -3,6 +3,7 @@ import { AssetOffer } from '../../shared/models'
 import { Observable, Subscription } from 'rxjs';
 
 import { HttpRestService } from '../../shared/http-rest.service'
+import { AssetOfferItemComponent } from '../asset-offer-item/asset-offer-item.component'
 
 @Component({
   selector: 'app-asset-offer-list',

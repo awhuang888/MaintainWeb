@@ -1,17 +1,32 @@
 <p>
   asset-offer-list works!
 </p>
+<div class="container-fluid">
 <div class="row">
   <div class="col-xs-12">
     <!-- <app-recipe-item
       *ngFor="let recipeEl of recipes; let i = index"
       [recipe]="recipeEl"
       [index]="i"></app-recipe-item> -->
-    <div *ngIf="assetOffers"> 
+    <!-- <div *ngIf="assetOffers"> 
       AssetId:{{assetOffers[0].AssetId}}
-    </div>
-    <div *ngFor="let assetOffer of assetOffers">
-      AssetId: {{assetOffer.AssetId}}  AssetCode:{{assetOffer.AssetCode}} StartDate:{{assetOffer.StartDate}}
-    </div>
+    </div> -->
+
   </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">AssetId</th>
+        <th scope="col">AssetCode</th>
+        <th scope="col">AssetName</th>
+        <th scope="col">LegalEntityId</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let assetOffer of assetOffers; index as i" [app-asset-offer-item]="assetOffer" [itemIndex]="i"></tr>
+    </tbody>
+  </table>
+</div>
 </div>

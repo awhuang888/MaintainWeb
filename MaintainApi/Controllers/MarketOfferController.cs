@@ -11,16 +11,16 @@ namespace MaintainApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MarketOfferController : ControllerBase
+    public class AssetOfferController : ControllerBase
     {
-        // GET: api/MarketOffer
+        // GET: api/AssetOffer
         [HttpGet]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
-        // GET: api/MarketOffer/1013726/TLS
+        // GET: api/AssetOffer/1013726/TLS
         [HttpGet("{LegalEntityId}/{AssetCode}", Name = "Get")]
         public IActionResult Get(int legalEntityId, string assetCode)
         {
@@ -35,13 +35,13 @@ namespace MaintainApi.Controllers
             }
         }
 
-        // POST: api/MarketOffer
+        // POST: api/AssetOffer
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT: api/MarketOffer/1013726/TLS
+        // PUT: api/AssetOffer/1013726/TLS
         // [FromBody]:"2018-7-7"
         [HttpPut("{LegalEntityId}/{AssetCode}")]
         public IActionResult Put(int legalEntityId, string assetCode, [FromBody] string dateTimeString)

@@ -26,11 +26,30 @@ namespace MaintainApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddCors(cx =>
+            {
+                cx.AddPolicy("MaintainUi", builder =>
+                {
+                    builder.AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowAnyOrigin()
+                        .WithOrigins(Configuration["URL:AllowCorsURL"].Split(','));
+                });
+
+                cx.AddPolicy("AnyGET", builder =>
+                {
+                    builder.AllowAnyHeader()
+                        .WithMethods("GET")
+                        .AllowAnyOrigin();
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseCors("MaintainUi");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

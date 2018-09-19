@@ -10,7 +10,7 @@ const httpOptions = {
 @Injectable()
 export class HttpRestService {
     //    private c_Url = 'http://localhost:9004';  // URL to web API
-    private c_Url = 'http://localhost:15664';  // URL to web API
+    private c_Url = 'https://localhost:44305/api';  // URL to web API
 
     constructor(private http: HttpClient) { }
 

@@ -9,6 +9,9 @@ import { HeaderComponent } from './header/header.component';
 
 import { HttpRestService } from './shared/http-rest.service';
 import { OtherRoutineComponent } from './other-routine/other-routine.component';
+import { AssetOfferListComponent } from './asset-offer/asset-offer-list/asset-offer-list.component';
+import { AssetOfferItemComponent } from './asset-offer/asset-offer-item/asset-offer-item.component';
+import { AssetOfferToolbarComponent } from './asset-offer/asset-offer-toolbar/asset-offer-toolbar.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +19,9 @@ import { OtherRoutineComponent } from './other-routine/other-routine.component';
     AssetOfferComponent,
     HeaderComponent,
     OtherRoutineComponent,
+    AssetOfferListComponent,
+    AssetOfferItemComponent,
+    AssetOfferToolbarComponent,
   ],
   imports: [
     BrowserModule,
