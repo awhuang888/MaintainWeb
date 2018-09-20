@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+
 
 @Component({
   selector: 'app-asset-offer-toolbar',
@@ -6,10 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./asset-offer-toolbar.component.css']
 })
 export class AssetOfferToolbarComponent implements OnInit {
+  @Output() ClickSearch = new EventEmitter<object>();
+ _legalEntityId:number;
+ _assetCode:string;
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onClickSearch(){
+    console.log("before click")
+    this.ClickSearch.emit({legalEntityId:this._legalEntityId, assetCode: this._assetCode});
   }
 
 }

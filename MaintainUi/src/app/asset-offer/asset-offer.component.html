@@ -1,12 +1,11 @@
 <div>
   <p>
-    asset-offer works!
+    asset-offer works!{{legalEntityId}}  --- {{assetCode}}
   </p>
   <div>
-      <app-asset-offer-toolbar></app-asset-offer-toolbar>
+    <app-asset-offer-toolbar (ClickSearch)="onClickSearch($event)"></app-asset-offer-toolbar>
   </div>
   <div>
-    <app-asset-offer-list [legalEntityId]="legalEntityId" [assetCode]="assetCode" ></app-asset-offer-list>
+    <app-asset-offer-list [legalEntityId]="legalEntityId" [assetCode]="assetCode"></app-asset-offer-list>
   </div>
 </div>
-

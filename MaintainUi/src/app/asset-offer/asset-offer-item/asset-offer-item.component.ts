@@ -9,8 +9,29 @@ import { AssetOffer } from '../../shared/models'
 export class AssetOfferItemComponent implements OnInit {
   @Input('app-asset-offer-item') assetOffer: AssetOffer;
   @Input('itemIndex') index: number;
+  isEditing:boolean = false;
 
   ngOnInit() {
+    console.log("In asset-offer-item   --- " + this.assetOffer.legalEntityId);
+  }
+
+  constructor() {
+  }
+
+  onClickActivateOffer(){
+    this.isEditing = true;
+  }
+
+  onClickDeactivateOffer(){
+    this.isEditing = true;
+  }
+
+  onClickSave(){
+    this.isEditing = false;
+  }
+
+  onClickCancel(){
+    this.isEditing = false;
   }
 
 }
