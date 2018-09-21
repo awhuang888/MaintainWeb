@@ -3,8 +3,12 @@ import { NgModule } from '@angular/core';
 import { FormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {DatePipe} from '@angular/common';
 
 import {CalendarModule} from 'primeng/calendar';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService} from 'primeng/api';
+import {SelectButtonModule} from 'primeng/selectbutton';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -37,8 +41,10 @@ import { InvestmentVehicleNamePipe } from './shared/investment-vehicle-name.pipe
     BrowserAnimationsModule,
 
     CalendarModule,
+    ConfirmDialogModule,
+    SelectButtonModule,
   ],
-  providers: [HttpRestService],
+  providers: [HttpRestService, ConfirmationService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

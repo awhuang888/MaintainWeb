@@ -1,23 +1,23 @@
 <div class="container">
   <div class="row">
-    <form class="form-inline col-md-8">
-      <div class="form-group col-4">
-        <label for="legalEntityId" class="col-5" >LegalEntityId</label>
+    <form class="form-inline col-md-10">
+      <div class="form-group col-6">
+        <label for="legalEntityId" class="col-3">LegalEntityId:</label>
         <span class="col-1"></span>
-        <input type="text" class="form-control col-5" id="legalEntityId" [(ngModel)]="_legalEntityId" name="legalEntityId"
-          required>
-          <span class="col-1"></span>
-      </div>
-
-      <div class="form-group col-4">
-        <label for="assetCode" class="col-5">AssetCode</label>
-        <span class="col-1"></span>
-        <input type="text" class="form-control col-5" id="assetCode" [(ngModel)]="_assetCode" name="assetCode" required>
+        <p-selectButton class="col-5" [options]="investmentVehicles" [(ngModel)]="legalEntityId" name="investmentVehicle"
+          id="legalEntityId" (onOptionClick)="onOptionClick($event)"></p-selectButton>
         <span class="col-1"></span>
       </div>
 
       <div class="form-group col-4">
-      <button type="submit" class="btn btn-success" (click)="onClickSearch()">Search</button>
+        <label for="assetCode" class="col-5">AssetCode:</label>
+        <span class="col-1"></span>
+        <input type="text" class="form-control col-5" id="assetCode" [(ngModel)]="assetCode" name="assetCode" required>
+        <span class="col-1"></span>
+      </div>
+
+      <div class="form-group col-2">
+        <button type="submit" class="btn btn-success" (click)="onClickSearch()">Search</button>
       </div>
     </form>
   </div>

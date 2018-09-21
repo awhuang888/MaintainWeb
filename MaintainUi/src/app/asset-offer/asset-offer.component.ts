@@ -18,8 +18,8 @@ export class AssetOfferComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.legalEntityId = 1013726;
-    this.assetCode = 'TLS';
+    // this.legalEntityId = 1013726;
+    // this.assetCode = 'TLS';
   }
 
   onClickSearch(searchPara: { legalEntityId: number, assetCode: string }) {

@@ -1,9 +1,7 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AssetOffer } from '../../shared/models'
-import { Observable, Subscription } from 'rxjs';
-
+import { Subscription } from 'rxjs';
 import { HttpRestService } from '../../shared/http-rest.service'
-import { AssetOfferItemComponent } from '../asset-offer-item/asset-offer-item.component'
 
 @Component({
   selector: 'app-asset-offer-list',
@@ -23,8 +21,17 @@ export class AssetOfferListComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges){
-    console.log("before onChanges Fetch");
+    // console.log("before onChanges Fetch");
     this.Fetch(this.legalEntityId, this.assetCode);
+  }
+
+  onItemUpdated(isUpdated:boolean)
+  {
+    // console.log("onItemUpdate --" );
+    if(isUpdated)
+    {
+      this.ngOnChanges(null);
+    }
   }
 
   Fetch(legalEntityId, assetCode){

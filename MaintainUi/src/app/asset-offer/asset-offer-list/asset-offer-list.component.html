@@ -10,10 +10,11 @@
           <th scope="col">InvestmentVehicle</th>
           <th scope="col">StartDate</th>
           <th scope="col">EndDate</th>
+          <th scope="col">Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let assetOffer of assetOffers; index as i" [app-asset-offer-item]="assetOffer" [itemIndex]="i"></tr>
+        <tr *ngFor="let assetOffer of assetOffers; index as i" [app-asset-offer-item]="assetOffer" [itemIndex]="i" (onUpdated)="onItemUpdated($event)" ></tr>
       </tbody>
     </table>
   </div>
