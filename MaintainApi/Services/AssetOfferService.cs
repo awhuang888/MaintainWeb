@@ -4,6 +4,7 @@ using System.Data;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace MaintainApi.Services
 {
@@ -12,8 +13,7 @@ namespace MaintainApi.Services
         public static string GetApprovedAssetOffer(int legalEntityId, string assetCode)
         {
             var sqlCommand = BuildEndApprovedAssetOffer_Read(legalEntityId, assetCode);
-            var dt = AdoService.Fetch(sqlCommand);
-            string json = JsonConvert.SerializeObject(dt, Formatting.Indented);
+            var json = AdoService.FetchAsJson(sqlCommand);
             return json;
         }
 
@@ -26,8 +26,8 @@ namespace MaintainApi.Services
 
         private static SqlCommand BuildEndApprovedAssetOffer_Update(int legalEntityId, string assetCode, DateTime? endDate)
         {
-            var paraEndDate = new SqlParameter("EndDate", SqlDbType.DateTime);
-            paraEndDate.Value = (object)endDate ?? DBNull.Value;
+            var paraEndDate =
+                new SqlParameter("EndDate", SqlDbType.DateTime) {Value = (object) endDate ?? DBNull.Value};
             var paraAssetCode = new SqlParameter("AssetCode", assetCode);
             var paraLegalEntityId = new SqlParameter("LegalEntityId", legalEntityId);
             return AdoService.BuildSqlCommand(

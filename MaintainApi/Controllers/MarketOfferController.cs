@@ -44,7 +44,7 @@ namespace MaintainApi.Controllers
         // PUT: api/AssetOffer/1013726/TLS
         // [FromBody]:"2018-7-7"
         [HttpPut("{LegalEntityId}/{AssetCode}")]
-        public IActionResult Put(int legalEntityId, string assetCode, [FromBody] string dateTimeString)
+        public IActionResult Put(int legalEntityId, string assetCode, [FromBody] string dateTimeString = "null")
         {
             try
             {

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace MaintainApi.Services
 {
@@ -22,6 +23,24 @@ namespace MaintainApi.Services
                 da.Fill(result);
             }
             return result;
+        }
+
+        public static string FetchAsJson(SqlCommand sqlCommand)
+        {
+            DataTable dt = new DataTable();
+            using (var connection = new SqlConnection(connectionString))
+            {
+                sqlCommand.Connection = connection;
+                SqlDataAdapter da = new SqlDataAdapter(sqlCommand);
+                da.Fill(dt);
+            }
+
+            var settings = new JsonSerializerSettings
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            };
+            string json = JsonConvert.SerializeObject(dt, Formatting.Indented, settings);
+            return json;
         }
 
         public static int Update(SqlCommand sqlCommand)
